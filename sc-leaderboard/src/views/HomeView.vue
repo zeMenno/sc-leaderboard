@@ -52,18 +52,6 @@ watch(
     immediate: true
   }
 )
-
-const options = {
-  particles: {
-    color: {
-      value: '#ffffff'
-    }
-  }
-}
-
-async function particlesInit(engine: Engine): Promise<void> {
-  await loadFull(engine)
-}
 </script>
 
 <template>
@@ -76,11 +64,12 @@ async function particlesInit(engine: Engine): Promise<void> {
             class="flex shadow-lg p-4 rounded-xl mb-2 text-xl text-center font-bold"
             :class="item.colorClass"
           >
-            <vue-particles id="particlesId" :options="options" :particlesInit="particlesInit" />
             <div class="">{{ index + 1 }}.</div>
             <div class="flex-grow">{{ item.points }}</div>
           </div>
         </template>
+
+        <vue-particles id="tsparticles" url="http://foo.bar/particles.json" />
       </div>
     </div>
   </div>
