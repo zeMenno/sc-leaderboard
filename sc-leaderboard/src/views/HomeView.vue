@@ -1,5 +1,7 @@
 <script setup lang="ts">
 import { ref, watch } from 'vue'
+import { loadFull } from 'tsparticles'
+import type { Engine } from '@tsparticles/engine'
 
 type LeaderboardItem = {
   colorClass: string
@@ -50,6 +52,18 @@ watch(
     immediate: true
   }
 )
+
+const options = {
+  particles: {
+    color: {
+      value: '#ffffff'
+    }
+  }
+}
+
+async function particlesInit(engine: Engine): Promise<void> {
+  await loadFull(engine)
+}
 </script>
 
 <template>
@@ -62,6 +76,7 @@ watch(
             class="flex shadow-lg p-4 rounded-xl mb-2 text-xl text-center font-bold"
             :class="item.colorClass"
           >
+            <vue-particles id="particlesId" :options="options" :particlesInit="particlesInit" />
             <div class="">{{ index + 1 }}.</div>
             <div class="flex-grow">{{ item.points }}</div>
           </div>
