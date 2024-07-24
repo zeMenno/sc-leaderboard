@@ -1,8 +1,6 @@
 import ScoreItemComponent, { ScoreItem } from "@/components/ScoreItem";
-import Image from "next/image";
 
-
-export const items: ScoreItem[] = [
+const items: ScoreItem[] = [
   { colorClass: "bg-red-500", points: 10 },
   { colorClass: "bg-blue-500", points: 20 },
   { colorClass: "bg-green-500", points: 30 },
