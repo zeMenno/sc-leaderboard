@@ -1,16 +1,17 @@
 export type ScoreItem = {
     colorClass: string;
     points: number;
+    name: string;
 }
 
 export default function ScoreItemComponent(index: number, props: ScoreItem) {
     return (
-        <div
-            className={`flex shadow-lg p-4 rounded-xl mb-2 text-xl text-center font-bold ${props.colorClass}`}
-        >
-            <div>{index + 1}.</div>
-            <div className="flex-grow">{props.points}</div>
-        </div>
-
+        <tr key={index} className={props.colorClass}>
+            <td className="number">{index+1}</td>
+            <td className="name">{props.name}</td>
+            <td className="points">
+                {props.points}
+            </td>
+        </tr>
     )
 }
