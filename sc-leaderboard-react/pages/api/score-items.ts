@@ -1,12 +1,20 @@
+import { ScoreItem } from "../../lib/definitions";
 import client from "../../lib/mongodb";
 import { NextApiRequest, NextApiResponse } from "next";
 
-const a = async (req: NextApiRequest, res: NextApiResponse) => {
+const a = async (req: NextApiRequest, res: NextApiResponse<ScoreItem[]>) => {
   if (req.method === "GET") {
     try {
       const db = client.db("Summercamp2025");
       const points = await db.collection("Points").find({}).toArray();
-      res.json(points);
+      const parsedPoints: ScoreItem[] = points.map((point) => {
+        return {
+          colorClass: point.colorClass,
+          points: point.points,
+          name: point.name,
+        };
+      });
+      res.json(parsedPoints);
     } catch (e) {
       console.error(e);
     }
@@ -14,7 +22,7 @@ const a = async (req: NextApiRequest, res: NextApiResponse) => {
     try {
       const db = client.db("Summercamp2025");
       const points = await db.collection("Points").insertOne(req.body);
-      res.json(points);
+      res.json();
     } catch (e) {
       console.error(e);
     }
