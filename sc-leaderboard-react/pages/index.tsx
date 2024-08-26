@@ -29,33 +29,33 @@ export const getServerSideProps: GetServerSideProps<
 const testData: ScoreItem = {
   colorClass: "bg-red-500",
   points: 10,
-  name: 'ROOD' 
-}
+  name: "ROOD",
+};
 
 async function addToDb(item: ScoreItem) {
-  await fetch('http://localhost:3000/api/score-items', {
-    method: 'POST',
+  await fetch("http://localhost:3000/api/score-items", {
+    method: "POST",
     body: JSON.stringify(item),
     headers: {
-      'Content-Type': 'application/json',
-    }
-  })
+      "Content-Type": "application/json",
+    },
+  });
 }
 
 export default function App({
   isConnected,
-}: InferGetServerSidePropsType<typeof getServerSideProps>) { 
-  const [data, setData] = useState<ScoreItem[]>([]) 
-  const [isLoading, setLoading] = useState(true)
+}: InferGetServerSidePropsType<typeof getServerSideProps>) {
+  const [data, setData] = useState<ScoreItem[]>([]);
+  const [isLoading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetch('http://localhost:3000/api/score-items')
+    fetch("http://localhost:3000/api/score-items")
       .then((res) => res.json())
       .then((data) => {
-        setData(data)
-        setLoading(false)
-      })
-  }, [])
+        setData(data);
+        setLoading(false);
+      });
+  }, []);
 
   return (
     <RootLayout>
@@ -63,12 +63,14 @@ export default function App({
         <div id="" className="text-grey-200">
           <h1>SUMMERCAMP 2025</h1>
         </div>
-        <div >
-            <button onClick={() => addToDb(testData)}>Add to db</button>
+        <div>
+          <button onClick={() => addToDb(testData)}>Add to db</button>
 
-            <table className="">
-              {data.map((item, index) => ScoreItemComponent(index, item))}
-            </table>
+          <table className="">
+            {data.map((item, index) => ScoreItemComponent(index, item))}
+          </table>
+
+          <button onClick={() => addToDb(testData)}>Add to db</button>
         </div>
       </main>
     </RootLayout>
