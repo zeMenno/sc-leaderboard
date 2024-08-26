@@ -42,6 +42,8 @@ async function addToDb(item: ScoreItem) {
   });
 }
 
+async function toForm() {}
+
 export default function App({
   isConnected,
 }: InferGetServerSidePropsType<typeof getServerSideProps>) {
@@ -70,7 +72,7 @@ export default function App({
             {data.map((item, index) => ScoreItemComponent(index, item))}
           </table>
 
-          <button onClick={() => addToDb(testData)}>Add to db</button>
+          <button>Add to db</button>
         </div>
       </main>
     </RootLayout>
