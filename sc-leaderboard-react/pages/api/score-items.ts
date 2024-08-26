@@ -12,6 +12,7 @@ const a = async (req: NextApiRequest, res: NextApiResponse<ScoreItem[]>) => {
           colorClass: point.colorClass,
           points: point.points,
           name: point.name,
+          team: point.team,
         };
       });
       res.json(parsedPoints);
@@ -22,7 +23,6 @@ const a = async (req: NextApiRequest, res: NextApiResponse<ScoreItem[]>) => {
     try {
       const db = client.db("Summercamp2025");
       const points = await db.collection("Points").insertOne(req.body);
-      res.json();
     } catch (e) {
       console.error(e);
     }
