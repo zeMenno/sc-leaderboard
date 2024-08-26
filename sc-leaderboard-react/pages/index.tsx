@@ -4,6 +4,7 @@ import type { InferGetServerSidePropsType, GetServerSideProps } from "next";
 import client from "../lib/mongodb";
 import { useEffect, useState } from "react";
 import RootLayout from "../components/layout";
+import Link from "next/link";
 
 type ConnectionStatus = {
   isConnected: boolean;
@@ -61,7 +62,7 @@ export default function App({
 
   return (
     <RootLayout>
-      <main className="bg-gradient-to-r from-blue-500 to-purple-500 text-white">
+      <main className="">
         <div id="" className="text-grey-200">
           <h1>SUMMERCAMP 2025</h1>
         </div>
@@ -72,7 +73,7 @@ export default function App({
             {data.map((item, index) => ScoreItemComponent(index, item))}
           </table>
 
-          <button>Add to db</button>
+          <Link href="/forms">Go to form</Link>
         </div>
       </main>
     </RootLayout>
