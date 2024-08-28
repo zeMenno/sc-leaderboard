@@ -1,7 +1,7 @@
 export type ScoreItem = {
   nameOfActivity: string;
   scorePerTeam: ScorePerTeam[];
-  dateOfActivity: Date | null;
+  dateOfActivity: Date;
 };
 
 export type ScorePerTeam = {
