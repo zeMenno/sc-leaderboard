@@ -1,42 +1,19 @@
 import ScoreItemComponent from "../components/ScoreItem";
-import type { InferGetServerSidePropsType, GetServerSideProps } from "next";
-import client from "../lib/mongodb";
 import { useEffect, useState } from "react";
 import RootLayout from "../components/layout";
 import Link from "next/link";
 import { ScoreItem, TeamName } from "../lib/definitions";
 
-type ConnectionStatus = {
-  isConnected: boolean;
-};
-
-export const getServerSideProps: GetServerSideProps<
-  ConnectionStatus
-> = async () => {
-  try {
-    await client.connect();
-
-    return {
-      props: { isConnected: true },
-    };
-  } catch (e) {
-    console.error(e);
-    return {
-      props: { isConnected: false },
-    };
-  }
-};
-
-export default function App({
-  isConnected,
-}: InferGetServerSidePropsType<typeof getServerSideProps>) {
+export default function App() {
   const [data, setData] = useState<ScoreItem[]>([]);
   const [isLoading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetch("http://localhost:3000/api/score-items")
+    console.log(Object.values(TeamName));
+    fetch(`${window.location.protocol}//${window.location.host}/api/activity`)
       .then((res) => res.json())
       .then((data) => {
+        console.log(data);
         setData(data);
         setLoading(false);
       });
@@ -51,11 +28,8 @@ export default function App({
         <div>
           {isLoading ? "IS LOADING..." : undefined}
           <table className="table table-auto">
-            <tbody>
-              {data.map((item, index) => ScoreItemComponent(index, item))}
-            </tbody>
+            <tbody>{ScoreItemComponent(data)}</tbody>
           </table>
-
           <Link href="/forms">Go to form</Link>
         </div>
       </main>

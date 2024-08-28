@@ -1,8 +1,11 @@
 import { format } from "date-fns";
 import { ScoreItem, TeamName } from "../../lib/definitions";
 import { formOptions, useForm } from "@tanstack/react-form";
+import { useRouter } from "next/navigation";
 
-export default function Forms() {
+export default function Forms({}) {
+  const router = useRouter();
+
   const formOpts = formOptions<ScoreItem>({
     defaultValues: {
       nameOfActivity: "",
@@ -47,10 +50,17 @@ export default function Forms() {
   const form = useForm({
     ...formOpts,
     onSubmit: async ({ value }) => {
-      fetch("http://localhost:3000/api/score-items", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(value),
+      fetch(
+        `${window.location.protocol}//${window.location.host}/api/activity`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(value),
+        },
+      ).then((val) => {
+        router.push("");
       });
     },
   });
