@@ -1,4 +1,4 @@
-import ScoreItemComponent from "./ScoreItem";
+import ScoreItemComponent from "../components/ScoreItem";
 import type { InferGetServerSidePropsType, GetServerSideProps } from "next";
 import client from "../lib/mongodb";
 import { useEffect, useState } from "react";
