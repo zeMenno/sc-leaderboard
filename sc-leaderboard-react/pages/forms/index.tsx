@@ -1,8 +1,9 @@
 import { format } from "date-fns";
 import { ScoreItem, TeamName } from "../../lib/definitions";
 import { formOptions, useForm } from "@tanstack/react-form";
+import { sql } from "@vercel/postgres";
 
-export default function Forms() {
+export default function Forms({}) {
   const formOpts = formOptions<ScoreItem>({
     defaultValues: {
       nameOfActivity: "",
