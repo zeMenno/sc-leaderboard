@@ -50,13 +50,16 @@ export default function Forms({}) {
   const form = useForm({
     ...formOpts,
     onSubmit: async ({ value }) => {
-      fetch(`http://${window.location.host}/api/activity`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
+      fetch(
+        `${window.location.protocol}//${window.location.host}/api/activity`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(value),
         },
-        body: JSON.stringify(value),
-      }).then((val) => {
+      ).then((val) => {
         router.push("");
       });
     },

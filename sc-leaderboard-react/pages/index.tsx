@@ -10,7 +10,7 @@ export default function App() {
 
   useEffect(() => {
     console.log(Object.values(TeamName));
-    fetch(`http://${window.location.host}/api/activity`)
+    fetch(`${window.location.protocol}//${window.location.host}/api/activity`)
       .then((res) => res.json())
       .then((data) => {
         console.log(data);
