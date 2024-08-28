@@ -5,7 +5,7 @@ import client from "../lib/mongodb";
 import { useEffect, useState } from "react";
 import RootLayout from "../components/layout";
 import Link from "next/link";
-import { ScoreItem, TeamName } from "../lib/definitions";
+import { ScorePerTeam, TeamName } from "../lib/definitions";
 
 type ConnectionStatus = {
   isConnected: boolean;
@@ -28,14 +28,14 @@ export const getServerSideProps: GetServerSideProps<
   }
 };
 
-const testData: ScoreItem = {
+const testData: ScorePerTeam = {
   colorClass: "bg-red-500",
   points: 10,
   name: "ROOD",
   team: TeamName.Red,
 };
 
-async function addToDb(item: ScoreItem) {
+async function addToDb(item: ScorePerTeam) {
   await fetch("http://localhost:3000/api/score-items", {
     method: "POST",
     body: JSON.stringify(item),
@@ -50,7 +50,7 @@ async function toForm() {}
 export default function App({
   isConnected,
 }: InferGetServerSidePropsType<typeof getServerSideProps>) {
-  const [data, setData] = useState<ScoreItem[]>([]);
+  const [data, setData] = useState<ScorePerTeam[]>([]);
   const [isLoading, setLoading] = useState(true);
 
   useEffect(() => {

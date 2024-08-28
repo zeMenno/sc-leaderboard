@@ -1,6 +1,6 @@
-import { ScoreItem } from "../lib/definitions";
+import { ScorePerTeam } from "../lib/definitions";
 
-export default function ScoreItemComponent(index: number, props: ScoreItem) {
+export default function ScoreItemComponent(index: number, props: ScorePerTeam) {
   return (
     <tr key={index} className={props.colorClass}>
       <td className="number">{index + 1}</td>
