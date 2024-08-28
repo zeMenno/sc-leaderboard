@@ -2,7 +2,10 @@ import { ScoreItem } from "../../lib/definitions";
 import client from "../../lib/mongodb";
 import { NextApiRequest, NextApiResponse } from "next";
 
-const api = async (req: NextApiRequest, res: NextApiResponse<ScoreItem[]>) => {
+const handler = async (
+  req: NextApiRequest,
+  res: NextApiResponse<ScoreItem[]>,
+) => {
   if (req.method === "GET") {
     try {
       const db = client.db("Summercamp2025");
@@ -23,4 +26,4 @@ const api = async (req: NextApiRequest, res: NextApiResponse<ScoreItem[]>) => {
   }
 };
 
-export default api;
+export default handler;
