@@ -1,7 +1,7 @@
 import { format } from "date-fns";
 import { ScoreItem, TeamName } from "../../lib/definitions";
 import { formOptions, useForm } from "@tanstack/react-form";
-import { sql } from "@vercel/postgres";
+import { createActivity } from "../../lib/postgresScripts";
 
 export default function Forms({}) {
   const formOpts = formOptions<ScoreItem>({
@@ -48,9 +48,11 @@ export default function Forms({}) {
   const form = useForm({
     ...formOpts,
     onSubmit: async ({ value }) => {
-      fetch("http://localhost:3000/api/score-items", {
+      fetch(`http://${window.location.host}/api/activity`, {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers: {
+          "Content-Type": "application/json",
+        },
         body: JSON.stringify(value),
       });
     },
