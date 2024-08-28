@@ -3,16 +3,17 @@ import { useEffect, useState } from "react";
 import RootLayout from "../components/layout";
 import Link from "next/link";
 import { ScoreItem, TeamName } from "../lib/definitions";
-import { sql } from "@vercel/postgres";
 
 export default function App() {
   const [data, setData] = useState<ScoreItem[]>([]);
   const [isLoading, setLoading] = useState(true);
 
   useEffect(() => {
+    console.log(Object.values(TeamName));
     fetch(`http://${window.location.host}/api/activity`)
       .then((res) => res.json())
       .then((data) => {
+        console.log(data);
         setData(data);
         setLoading(false);
       });
@@ -27,11 +28,8 @@ export default function App() {
         <div>
           {isLoading ? "IS LOADING..." : undefined}
           <table className="table table-auto">
-            <tbody>
-              {data.map((item, index) => ScoreItemComponent(index, item))}
-            </tbody>
+            <tbody>{ScoreItemComponent(data)}</tbody>
           </table>
-
           <Link href="/forms">Go to form</Link>
         </div>
       </main>

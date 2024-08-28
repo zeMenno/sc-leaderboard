@@ -20,29 +20,22 @@ const handler = async (
       [nameOfActivity, dateOfActivity],
     );
 
-    const activityId = result.rows[0].id;
+    const activityId = result.rows[0]?.id;
 
     // Insert scores for teams
     for (const score of scorePerTeam) {
-      // Insert or fetch team ID
-      const teamResult = await sql.query(
+      const teamId = await sql.query(
         `
-          INSERT INTO teams (name)
-          VALUES ($1)
-          ON CONFLICT (name) DO NOTHING
-          RETURNING id
+        SELECT id FROM teams WHERE name = $1
         `,
         [score.team],
       );
-
-      const teamId = teamResult.rows.length > 0 ? teamResult.rows[0].id : null;
-
       await sql.query(
         `
           INSERT INTO scores (points, team_id, activity_id)
           VALUES ($1, $2, $3)
         `,
-        [score.points, teamId, activityId],
+        [score.points, teamId.rows[0]?.id, activityId],
       );
     }
   } else if (req.method === "GET") {

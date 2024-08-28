@@ -1,5 +1,6 @@
 import { NextApiRequest, NextApiResponse } from "next";
 import { sql } from "@vercel/postgres";
+import { TeamName } from "../../lib/definitions";
 
 export default async function handler(
   request: NextApiRequest,
@@ -29,6 +30,18 @@ export default async function handler(
             name team_name NOT NULL UNIQUE
         );
         `;
+
+    const teamNames = Object.values(TeamName) as string[];
+    const placeHolders = teamNames
+      .map((_, index) => `$${index + 1}`)
+      .join("), (");
+    const result = await sql.query(
+      `
+      INSERT INTO teams (name) VALUES (${placeHolders}) ON CONFLICT (name) DO NOTHING;
+    `,
+      [...teamNames],
+    );
+
     const result_3 = await sql`
         CREATE TABLE activities (
             id SERIAL PRIMARY KEY,
@@ -44,10 +57,16 @@ export default async function handler(
             activity_id INT REFERENCES activities(id) ON DELETE CASCADE
         );
         `;
-    return response
-      .status(200)
-      .json({ dropResult, removeType, result_1, result_2, result_3, result_4 });
+    return response.status(200).json({
+      dropResult,
+      removeType,
+      result,
+      result_1,
+      result_2,
+      result_3,
+      result_4,
+    });
   } catch (error) {
-    return response.status(500).json({ error });
+    throw error;
   }
 }
