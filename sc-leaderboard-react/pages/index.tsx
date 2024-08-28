@@ -5,7 +5,7 @@ import client from "../lib/mongodb";
 import { useEffect, useState } from "react";
 import RootLayout from "../components/layout";
 import Link from "next/link";
-import { ScorePerTeam, TeamName } from "../lib/definitions";
+import { ScoreItem, ScorePerTeam, TeamName } from "../lib/definitions";
 
 type ConnectionStatus = {
   isConnected: boolean;
@@ -28,11 +28,15 @@ export const getServerSideProps: GetServerSideProps<
   }
 };
 
-const testData: ScorePerTeam = {
-  colorClass: "bg-red-500",
-  points: 10,
-  name: "ROOD",
-  team: TeamName.Red,
+const testData: ScoreItem = {
+  nameOfActivity: "Test ",
+  scorePerTeam: [
+    {
+      team: TeamName.Blue,
+      points: 10,
+    },
+  ],
+  dateOfActivity: new Date(),
 };
 
 async function addToDb(item: ScorePerTeam) {

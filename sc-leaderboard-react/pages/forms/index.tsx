@@ -52,7 +52,7 @@ export default function Forms() {
   });
 
   return (
-    <div className="max-w-sm mx-auto backdrop-blur">
+    <div className="max-w-sm mx-auto">
       <h1 className="text-pretty text-3xl">Add score</h1>
       <form
         className="max-w-sm mx-auto"
@@ -62,13 +62,13 @@ export default function Forms() {
           form.handleSubmit();
         }}
       >
-        <div className="space-y-6">
+        <div className="space-y-6 flex flex-col">
           <form.Field name="nameOfActivity">
             {(subField) => (
               <label>
                 <div>Name of Activity</div>
                 <input
-                  className="border-2 border-gray-200 rounded-md"
+                  className="form-input px-4 py-3 rounded-xl"
                   value={subField.state.value}
                   onChange={(e) => subField.handleChange(e.target.value)}
                 />
@@ -84,11 +84,14 @@ export default function Forms() {
               <div>
                 {field.state.value.map((_, i) => (
                   <div key={i}>
-                    <div className=""> {field.state.value[i].team}</div>
+                    <div className="text-gray-500">
+                      {field.state.value[i].team}{" "}
+                    </div>
                     <form.Field name={`scorePerTeam[${i}].points`}>
                       {(subField) => (
                         <input
                           type="number"
+                          className="form-input px-4 py-3 rounded-xl"
                           value={subField.state.value}
                           onChange={(e) => {
                             subField.handleChange(e.target.valueAsNumber);
@@ -104,13 +107,19 @@ export default function Forms() {
 
           <form.Field name="dateOfActivity">
             {(field) => (
-              <input
-                type="date"
-                value={format(field.state.value, "yyyy-MM-dd")}
-                onChange={(e) =>
-                  field.handleChange(e.target.valueAsDate ?? new Date())
-                }
-              />
+              <div>
+                <label>
+                  <div>Datum</div>
+                  <input
+                    type="date"
+                    className="form-input px-4 py-3 rounded-xl"
+                    value={format(field.state.value, "yyyy-MM-dd")}
+                    onChange={(e) =>
+                      field.handleChange(e.target.valueAsDate ?? new Date())
+                    }
+                  />
+                </label>
+              </div>
             )}
           </form.Field>
           <form.Subscribe
