@@ -1,5 +1,5 @@
 import { format } from "date-fns";
-import { ScoreItem, ScorePerTeam, TeamName } from "../../lib/definitions";
+import { ScoreItem, TeamName } from "../../lib/definitions";
 import { formOptions, useForm } from "@tanstack/react-form";
 
 export default function Forms() {
@@ -47,7 +47,11 @@ export default function Forms() {
   const form = useForm({
     ...formOpts,
     onSubmit: async ({ value }) => {
-      console.log(value);
+      fetch("http://localhost:3000/api/score-items", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(value),
+      });
     },
   });
 

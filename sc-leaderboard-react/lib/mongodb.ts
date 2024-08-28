@@ -3,6 +3,9 @@ import { MongoClient } from "mongodb";
 if (!process.env.MONGODB_URI) {
   throw new Error('Invalid/Missing environment variable: "MONGODB_URI"');
 }
+if (!process.env.NODE_ENV) {
+  throw new Error('Invalid/Missing environment variable: "NODE_ENV"');
+}
 
 const uri = process.env.MONGODB_URI;
 const options = {};
