@@ -1,7 +1,11 @@
 export type ScoreItem = {
-  colorClass: string;
+  nameOfActivity: string;
+  scorePerTeam: ScorePerTeam[];
+  dateOfActivity: Date;
+};
+
+export type ScorePerTeam = {
   points: number;
-  name: string;
   team: TeamName;
 };
 

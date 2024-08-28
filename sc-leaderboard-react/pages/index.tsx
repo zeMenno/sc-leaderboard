@@ -1,5 +1,4 @@
-import ScoreItemComponent from "./ScoreItem";
-
+import ScoreItemComponent from "../components/ScoreItem";
 import type { InferGetServerSidePropsType, GetServerSideProps } from "next";
 import client from "../lib/mongodb";
 import { useEffect, useState } from "react";
@@ -28,25 +27,6 @@ export const getServerSideProps: GetServerSideProps<
   }
 };
 
-const testData: ScoreItem = {
-  colorClass: "bg-red-500",
-  points: 10,
-  name: "ROOD",
-  team: TeamName.Red,
-};
-
-async function addToDb(item: ScoreItem) {
-  await fetch("http://localhost:3000/api/score-items", {
-    method: "POST",
-    body: JSON.stringify(item),
-    headers: {
-      "Content-Type": "application/json",
-    },
-  });
-}
-
-async function toForm() {}
-
 export default function App({
   isConnected,
 }: InferGetServerSidePropsType<typeof getServerSideProps>) {
@@ -64,15 +44,16 @@ export default function App({
 
   return (
     <RootLayout>
-      <main className="">
+      <main className="max-w-sm mx-auto">
         <div id="" className="text-grey-200">
-          <h1>SUMMERCAMP 2025</h1>
+          <h1 className="text-pretty text-3xl">SUMMERCAMP 2025</h1>
         </div>
         <div>
-          <button onClick={() => addToDb(testData)}>Add to db</button>
-
-          <table className="">
-            {data.map((item, index) => ScoreItemComponent(index, item))}
+          {isLoading ? "IS LOADING..." : undefined}
+          <table className="table table-auto">
+            <tbody>
+              {data.map((item, index) => ScoreItemComponent(index, item))}
+            </tbody>
           </table>
 
           <Link href="/forms">Go to form</Link>
